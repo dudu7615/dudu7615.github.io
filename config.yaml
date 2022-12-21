@@ -1,0 +1,25 @@
+baseURL: https://www.dudu7615.tk/
+languageCode: zh-CN
+title: Dudu's Website  # 标题
+publishDir: docs  # 保存目录
+themesDir: themes  # 主题目录
+theme: m10c  # 主题名称
+paginate: 8
+
+menu:
+  main:
+    - identifier: books
+      name: 书籍简述
+      url: /books
+      weight: 1
+  
+
+params:
+  author: dudu
+  description: " "  # 简介
+  menu_item_separator: "-"  # 符号分隔符
+
+  social:
+    - icon: github
+      name: Github
+      url: https://github.com/dudu7615
