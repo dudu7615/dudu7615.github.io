@@ -7,11 +7,11 @@ theme: m10c  # 主题名称
 paginate: 8
 
 menu:
-  main:
-    - identifier: books
-      name: 书籍简述
-      url: /books
-      weight: 1
+  # main:
+  #   - identifier: books
+  #     name: 书籍简述
+  #     url: /books
+  #     weight: 1
   
 
 params:
