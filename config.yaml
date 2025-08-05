@@ -3,7 +3,7 @@ languageCode: zh-CN
 title: Dudu's Website  # 标题
 publishDir: docs  # 保存目录
 themesDir: themes  # 主题目录
-theme: m10c  # 主题名称
+theme: hugo-theme-m10c  # 主题名称
 paginate: 8
 
 menu:
