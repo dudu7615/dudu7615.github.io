@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    model: "glm-4.5-flash",
+                    model: "GLM-4-Flash-250414",
                     messages: conversationHistory,
                     stream: true  // 开启流式回复
                 })
