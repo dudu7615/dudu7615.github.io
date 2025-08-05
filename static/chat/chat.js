@@ -44,8 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
                           now.getMinutes().toString().padStart(2, '0') + ':' + 
                           now.getSeconds().toString().padStart(2, '0');
         
+        // 使用 marked.js 格式化消息内容
+        const formattedText = marked.parse(escapeHtml(text));
+        
         messageElement.innerHTML = `
-            <span class="message-text">${escapeHtml(text)}</span>
+            <span class="message-text">${formattedText}</span>
             <span class="message-time">${timeString}</span>
         `;
         
@@ -146,7 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 }
                                 
                                 accumulatedText += content;
-                                aiMessageContainer.textContent = accumulatedText;
+                                // 使用 marked.js 格式化AI回复内容
+                                aiMessageContainer.innerHTML = marked.parse(accumulatedText);
                                 chatMessages.scrollTop = chatMessages.scrollHeight;
                             }
                         } catch (e) {
@@ -158,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } catch (error) {
             console.error('Error getting AI reply:', error);
-            addMessage('抱歉，获取回复时出现错误，请稍后重试。', 'other');
+            addMessage('抱歉，获取回复时出现错误，请稍后重试。'+error, 'other');
         }
     }
 
