@@ -2,7 +2,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-color: #353b43; /* $dark-color */
+    color: #afbac4; /* $light-color */
 }
 
 .chat-container {
@@ -11,15 +12,16 @@ body {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 40px);
-    background-color: white;
+    background-color: #242930; /* $darkest-color */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #57cc8a; /* $primary-color */
 }
 
 .chat-header {
     padding: 20px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #57cc8a; /* $primary-color */
+    color: #ffffff; /* $lightest-color */
     text-align: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -54,24 +56,26 @@ body {
 
 .system-message {
     align-self: center;
-    background-color: #e0e0e0;
-    color: #666;
+    background-color: #353b43; /* $dark-color */
+    color: #afbac4; /* $light-color */
     font-style: italic;
     font-size: 0.9em;
     max-width: 80%;
     text-align: center;
+    border: 1px solid #57cc8a; /* $primary-color */
 }
 
 .user-message {
     align-self: flex-end;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #57cc8a; /* $primary-color */
+    color: #ffffff; /* $lightest-color */
 }
 
 .other-message {
     align-self: flex-start;
-    background-color: #e0e0e0;
-    color: #333;
+    background-color: #353b43; /* $dark-color */
+    color: #afbac4; /* $light-color */
+    border: 1px solid #57cc8a; /* $primary-color */
 }
 
 .message-text {
@@ -87,22 +91,30 @@ body {
 .chat-input-container {
     display: flex;
     padding: 20px;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #353b43; /* $dark-color */
 }
 
 #messageInput {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #57cc8a; /* $primary-color */
     border-radius: 5px;
     font-size: 1em;
+    background-color: #242930; /* $darkest-color */
+    color: #afbac4; /* $light-color */
+}
+
+#messageInput:focus {
+    outline: none;
+    border-color: #57cc8a; /* $primary-color */
+    box-shadow: 0 0 5px rgba(87, 204, 138, 0.5); /* $primary-color with opacity */
 }
 
 #sendButton {
     margin-left: 10px;
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #57cc8a; /* $primary-color */
+    color: #ffffff; /* $lightest-color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -110,10 +122,10 @@ body {
 }
 
 #sendButton:hover {
-    background-color: #45a049;
+    background-color: #45a049; /* slightly darker shade */
 }
 
 #sendButton:disabled {
-    background-color: #cccccc;
+    background-color: #353b43; /* $dark-color */
     cursor: not-allowed;
 }

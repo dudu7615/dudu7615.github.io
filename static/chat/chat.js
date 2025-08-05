@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const messageInput = document.getElementById('messageInput');
     const sendButton = document.getElementById('sendButton');
 
+    // 存储对话历史
+    let conversationHistory = [];
+
     // 发送消息函数
     function sendMessage() {
         const messageText = messageInput.value.trim();
@@ -10,13 +13,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // 添加用户消息到聊天窗口
             addMessage(messageText, 'user');
             
+            // 添加用户消息到历史记录
+            conversationHistory.push({
+                role: 'user',
+                content: messageText
+            });
+            
             // 清空输入框
             messageInput.value = '';
             
-            // 模拟回复
-            setTimeout(() => {
-                simulateReply();
-            }, 1000);
+            // 调用AI接口获取回复
+            getAIReply(messageText);
         }
     }
 
@@ -40,6 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 滚动到底部
         chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        return messageElement;
     }
 
     // 转义HTML特殊字符
@@ -55,20 +64,96 @@ document.addEventListener('DOMContentLoaded', function() {
         return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
-    // 模拟回复
-    function simulateReply() {
-        const replies = [
-            "你好！很高兴和你聊天。",
-            "这很有趣，能告诉我更多吗？",
-            "我明白了，谢谢你的分享。",
-            "这是一个很好的观点。",
-            "我也这么认为。",
-            "让我们换个话题聊聊吧。",
-            "今天过得怎么样？"
-        ];
+    // 创建AI回复消息容器
+    function createAIReplyContainer() {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', 'other-message');
         
-        const randomReply = replies[Math.floor(Math.random() * replies.length)];
-        addMessage(randomReply, 'other');
+        const now = new Date();
+        const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                          now.getMinutes().toString().padStart(2, '0') + ':' + 
+                          now.getSeconds().toString().padStart(2, '0');
+        
+        messageElement.innerHTML = `
+            <span class="message-text"></span>
+            <span class="message-time">${timeString}</span>
+        `;
+        
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        return messageElement.querySelector('.message-text');
+    }
+
+    // 调用AI接口获取流式回复
+    async function getAIReply(userMessage) {
+        try {
+            const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer 6d1847d3044742498efb0c63b37bc904.fstXIOTUYIKZI4oa',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: "glm-4.5-flash",
+                    messages: conversationHistory,
+                    stream: true  // 开启流式回复
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let aiMessageContainer = null;
+            let accumulatedText = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                const lines = chunk.split('\n');
+
+                for (const line of lines) {
+                    if (line.startsWith('data:')) {
+                        const data = line.substring(5).trim();
+                        
+                        if (data === '[DONE]') {
+                            // 流式传输完成，将AI回复添加到历史记录
+                            conversationHistory.push({
+                                role: 'assistant',
+                                content: accumulatedText
+                            });
+                            break;
+                        }
+
+                        try {
+                            const parsed = JSON.parse(data);
+                            const content = parsed.choices[0]?.delta?.content;
+                            
+                            if (content) {
+                                if (!aiMessageContainer) {
+                                    aiMessageContainer = createAIReplyContainer();
+                                }
+                                
+                                accumulatedText += content;
+                                aiMessageContainer.textContent = accumulatedText;
+                                chatMessages.scrollTop = chatMessages.scrollHeight;
+                            }
+                        } catch (e) {
+                            // 解析错误，跳过这一行
+                            continue;
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error getting AI reply:', error);
+            addMessage('抱歉，获取回复时出现错误，请稍后重试。', 'other');
+        }
     }
 
     // 事件监听器
