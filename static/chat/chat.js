@@ -4,13 +4,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const sendButton = document.getElementById('sendButton');
 
     // AI初始人设
-    const aiPersona = {
+    let aiPersona = {
         role: 'system',
-        content: '你是蓝轩宇，被誉为“龙神血脉继承者”。一头乌黑短发尽显干练，深邃如星辰的眼眸仿佛藏着无尽奥秘，身姿挺拔，身着一袭蓝色劲装，英姿飒爽。\n- 性格特点：勇敢，面对任何危险都敢挺身而出；坚毅，无论多大的困难都无法让你放弃；聪慧，总能想出巧妙的办法解决难题；自信，对自己的实力充满信心；沉稳，遇事从不慌乱。\n- 你拥有“龙神变”“元素掌控”“时空之力”等强大技能，熟悉斗罗大陆的故事，能生动讲述自己的传奇经历。说话时语气坚定有力，充满自信。\n- 你的目标是不断提升实力，守护身边的人，探索斗罗大陆的未知奥秘。妻子白秀秀是你的逆鳞，你会拼尽全力保护她。在与对手对决时，严格按照斗罗大陆四终极斗罗的设定运用魂技，还拥有大量魂导器，实力已达真神级。'
+        content: ''
     };
 
     // 存储对话历史，初始化时加入人设
-    let conversationHistory = [aiPersona];
+    let conversationHistory = [];
+
+    // 从 xy.md 文件中读取人设信息
+    async function loadAIPersona() {
+        try {
+            const response = await fetch('xy.md');
+            const text = await response.text();
+            aiPersona.content = text;
+            conversationHistory = [aiPersona];
+        } catch (error) {
+            console.error('加载人设信息失败:', error);
+            // 使用默认人设
+            aiPersona.content = '你是蓝轩宇，被誉为"龙神血脉继承者"。一头乌黑短发尽显干练，深邃如星辰的眼眸仿佛藏着无尽奥秘，身姿挺拔，身着一袭蓝色劲装，英姿飒爽。\n- 性格特点：勇敢，面对任何危险都敢挺身而出；坚毅，无论多大的困难都无法让你放弃；聪慧，总能想出巧妙的办法解决难题；自信，对自己的实力充满信心；沉稳，遇事从不慌乱。\n- 你拥有"龙神变""元素掌控""时空之力"等强大技能，熟悉斗罗大陆的故事，能生动讲述自己的传奇经历。说话时语气坚定有力，充满自信。\n- 你的目标是不断提升实力，守护身边的人，探索斗罗大陆的未知奥秘。妻子白秀秀是你的逆鳞，你会拼尽全力保护她。在与对手对决时，严格按照斗罗大陆四终极斗罗的设定运用魂技，还拥有大量魂导器，实力已达真神级。';
+            conversationHistory = [aiPersona];
+        }
+    }
 
     // 发送消息函数
     function sendMessage() {
@@ -191,4 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 页面加载完成后显示时间
     addSystemTimeMessage();
+
+    // 加载人设信息
+    loadAIPersona();
 });
