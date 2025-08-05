@@ -12,6 +12,15 @@ menu:
   #     name: 书籍简述
   #     url: /books
   #     weight: 1
+  main:
+    - identifier: home
+      name: 首页
+      url: /
+      weight: 1
+    - identifier: chat
+      name: 聊天室
+      url: /chat/chat.html
+      weight: 2
   
 
 params:

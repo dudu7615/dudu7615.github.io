@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天室</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>在线聊天室</h1>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message system-message">
+                <span class="message-text">欢迎来到聊天室！</span>
+                <span class="message-time"></span>
+            </div>
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="messageInput" placeholder="输入消息..." />
+            <button id="sendButton">发送</button>
+        </div>
+    </div>
+    <script src="chat.js"></script>
+</body>
+</html>
