@@ -1,0 +1,147 @@
+/* dudu7615 · 个人主页 ─────────────────────────────────────────────
+ * 样式全部用 tokens.css 里的变量。想换配色/字号，只改 tokens.css。
+ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { overflow-x: clip; }
+body {
+  overflow-x: clip;
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 页面上一条极淡的蓝色光晕，点到即止 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 45vh;
+  background: radial-gradient(120% 100% at 50% 0%,
+              var(--color-accent-wash) 0%, transparent 68%);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.page {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 14vh, 9rem) clamp(1.25rem, 5vw, 2rem) var(--space-2xl);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 引言 ───────────────────────────────────────────── */
+.name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: normal;                 /* 标题永不用斜体 */
+  font-size: var(--text-display);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.name .dot { color: var(--color-accent); }
+
+.lede {
+  font-size: var(--text-lede);
+  color: var(--color-ink-soft);
+  max-width: 32rem;
+  margin: var(--space-lg) 0 0;
+  text-wrap: pretty;
+}
+
+/* ── 链接列表 ───────────────────────────────────────── */
+.links {
+  margin-top: var(--space-2xl);
+  border-top: 1px solid var(--color-line);
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  --pad: var(--space-md) var(--space-sm);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding: var(--pad);
+  border-bottom: 1px solid var(--color-line);
+  text-decoration: none;
+  color: var(--color-ink);
+  transition: color var(--dur-fast) var(--ease-out),
+              transform var(--dur-mid) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out);
+}
+
+.link-label {
+  font-weight: 600;
+  font-size: 1.0625rem;
+  white-space: nowrap;
+}
+
+.link-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--color-ink-faint);
+  margin-left: auto;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+/* 箭头：hover 时才滑出来 */
+.link-label::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 0.4em;
+  color: var(--color-accent);
+  opacity: 0;
+  transform: translateX(-0.35em);
+  transition: opacity var(--dur-mid) var(--ease-out),
+              transform var(--dur-mid) var(--ease-out);
+}
+
+.link:hover,
+.link:focus-visible { color: var(--color-accent-ink); background: var(--color-accent-wash); }
+.link:hover .link-label::after,
+.link:focus-visible .link-label::after { opacity: 1; transform: translateX(0); }
+.link:hover { transform: translateX(2px); }
+.link:active { transform: translateX(2px) scale(0.995); }
+
+a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── 页脚 ───────────────────────────────────────────── */
+.foot {
+  margin-top: auto;
+  padding-top: var(--space-2xl);
+  color: var(--color-ink-faint);
+  font-size: var(--text-meta);
+}
+.foot p { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  .link:hover { transform: none; }
+}

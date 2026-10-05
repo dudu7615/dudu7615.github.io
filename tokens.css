@@ -1,0 +1,63 @@
+/* Hallmark · macrostructure: Letter · tone: editorial · anchor hue: blue
+ * theme: custom (paper: oklch(99% 0.003 255) · accent: oklch(52% 0.16 255) blue)
+ * All colour, type, space, motion values live here. Never inline raw values below.
+ */
+
+:root {
+  /* ---- colour: light ---- */
+  --color-paper:      oklch(99%   0.003 255);
+  --color-paper-2:    oklch(96.5% 0.006 255);
+  --color-ink:        oklch(23%   0.020 262);
+  --color-ink-soft:   oklch(46%   0.020 262);
+  --color-ink-faint:  oklch(62%   0.015 262);
+  --color-line:       oklch(90%   0.008 262);
+  --color-accent:     oklch(52%   0.160 255);
+  --color-accent-ink: oklch(42%   0.170 255);
+  --color-accent-wash:oklch(96%   0.020 255);
+  --color-focus:      oklch(56%   0.180 255);
+
+  /* ---- type ---- */
+  --font-display: "Songti SC", "Noto Serif SC", "Source Han Serif SC",
+                  "Times New Roman", Georgia, serif;
+  --font-body:    system-ui, -apple-system, "Segoe UI", "PingFang SC",
+                  "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-mono:    ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --text-display: clamp(2.75rem, 11vw, 5.25rem);
+  --text-lede:    clamp(1.05rem, 2.6vw, 1.375rem);
+  --text-body:    1rem;
+  --text-meta:    0.8125rem;
+
+  /* ---- space (4pt scale) ---- */
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* ---- motion ---- */
+  --dur-fast: 120ms;
+  --dur-mid:  220ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --radius: 14px;
+  --measure: 44rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper:      oklch(19%   0.014 262);
+    --color-paper-2:    oklch(23%   0.016 262);
+    --color-ink:        oklch(94%   0.006 255);
+    --color-ink-soft:   oklch(76%   0.012 258);
+    --color-ink-faint:  oklch(58%   0.014 258);
+    --color-line:       oklch(30%   0.014 262);
+    --color-accent:     oklch(72%   0.130 250);
+    --color-accent-ink: oklch(80%   0.110 250);
+    --color-accent-wash:oklch(27%   0.030 255);
+    --color-focus:      oklch(78%   0.140 250);
+  }
+}
