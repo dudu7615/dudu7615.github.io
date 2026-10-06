@@ -1,7 +1,23 @@
 /* Hallmark · macrostructure: Letter · tone: editorial · anchor hue: blue
  * theme: custom (paper: oklch(99% 0.003 255) · accent: oklch(52% 0.16 255) blue)
  * All colour, type, space, motion values live here. Never inline raw values below.
+ * 字体子集由 tools/subset-font.py 生成（Latin + GB2312 汉字），连着字一起保留。
  */
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("fonts/maple-mono-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Maple Mono";
+  src: url("fonts/maple-mono-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* ---- colour: light ---- */
@@ -17,11 +33,10 @@
   --color-focus:      oklch(56%   0.180 255);
 
   /* ---- type ---- */
-  --font-display: "Songti SC", "Noto Serif SC", "Source Han Serif SC",
-                  "Times New Roman", Georgia, serif;
-  --font-body:    system-ui, -apple-system, "Segoe UI", "PingFang SC",
-                  "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-  --font-mono:    ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --font-display: "Maple Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-body:    "Maple Mono", system-ui, -apple-system, "PingFang SC",
+                  "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-mono:    "Maple Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --text-display: clamp(2.75rem, 11vw, 5.25rem);
   --text-lede:    clamp(1.05rem, 2.6vw, 1.375rem);
